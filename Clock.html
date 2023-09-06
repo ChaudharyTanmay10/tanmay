@@ -1,0 +1,39 @@
+<!-- clock.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>clock.html</title>
+    <style>
+        #clock {
+            font-size: 24px;
+        }
+        #stopwatch-link {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>12-Hour Clock</h1>
+    <div id="clock"></div>
+    <a id="stopwatch-link" href="stopwatch.html">Go to Stopwatch</a>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12 || 12; // Convert to 12-hour format
+            const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+
+        // Initial update
+        updateClock();
+    </script>
+<h3>This is the power of html this full think is made from using html</h3>
+</body>
+</html>
