@@ -1,0 +1,61 @@
+<!-- stopwatch.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stopwatch.html</title>
+    <style>
+        #stopwatch {
+            font-size: 24px;
+        }
+        #startStopButton, #resetButton {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stopwatch</h1>
+    <div id="stopwatch">00:00:00</div>
+    <button id="startStopButton">Start</button>
+    <button id="resetButton">Reset</button>
+
+    <script>
+        let isRunning = false;
+        let seconds = 0;
+        let intervalId;
+
+        function updateStopwatch() {
+            const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('stopwatch').textContent = `${hours}:${minutes}:${secs}`;
+        }
+
+        document.getElementById('startStopButton').addEventListener('click', function () {
+            if (isRunning) {
+                clearInterval(intervalId);
+                this.textContent = 'Start';
+            } else {
+                intervalId = setInterval(function () {
+                    seconds++;
+                    updateStopwatch();
+                }, 1000);
+                this.textContent = 'Stop';
+            }
+            isRunning = !isRunning;
+        });
+
+        document.getElementById('resetButton').addEventListener('click', function () {
+            clearInterval(intervalId);
+            seconds = 0;
+            updateStopwatch();
+            isRunning = false;
+            document.getElementById('startStopButton').textContent = 'Start';
+        });
+
+        // Initial update
+        updateStopwatch();
+    </script>
+</body>
+</html>
